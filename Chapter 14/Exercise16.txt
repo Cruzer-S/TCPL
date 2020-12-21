@@ -1,0 +1,2 @@
+Answer:
+#pragma ident "foo"

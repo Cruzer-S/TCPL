@@ -1,1 +1,0 @@
-Answer: out of the main function.

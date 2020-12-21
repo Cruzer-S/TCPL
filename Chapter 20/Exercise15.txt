@@ -1,5 +1,0 @@
-Answer: (a) position of sign bit (MSB or LSB)
-(b) 
-struct {
-	unsigned int flag: 1;
-} s;

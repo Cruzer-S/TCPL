@@ -1,4 +1,0 @@
-Answer: (a) "wb"
-(b) "a"
-(c) "rb"
-(d) "r"

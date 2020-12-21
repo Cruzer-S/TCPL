@@ -1,2 +1,0 @@
-Answer: printf("%d widget%s", widget, 
-				(widget == 1) ? "" : "s");

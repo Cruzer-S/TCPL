@@ -1,3 +1,0 @@
-Output will be same as following:
-i = 1, j = 2
-

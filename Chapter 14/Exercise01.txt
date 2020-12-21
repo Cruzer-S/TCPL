@@ -1,3 +1,0 @@
-#define CUBE(x) ((x)*(x))
-#define REM4(n) ((n) % 4)
-#define CHCK(x,y) ((x) * (y) < 100)

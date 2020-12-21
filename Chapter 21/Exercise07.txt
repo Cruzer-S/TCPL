@@ -1,9 +1,0 @@
-Answer:
-(a) time.h
-(b) ctype.h
-(c) stdint.h 
-(d) math.h
-(e) limits.h
-(f) fenv.h
-(g) string.h
-(h) stdlib.h

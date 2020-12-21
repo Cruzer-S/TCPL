@@ -1,4 +1,0 @@
-(a) mismatch (int *, int)
-(b) true
-(c) true
-(d) true

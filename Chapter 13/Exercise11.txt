@@ -1,8 +1,0 @@
-int strcmp(char *s, char *t)
-{
-	for (; *s == *t; *s++, *t++)
-		if (*s == '\n')
-			return 0;
-
-	return *s - *t;
-}

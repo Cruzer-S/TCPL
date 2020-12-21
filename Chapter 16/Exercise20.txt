@@ -1,7 +1,0 @@
-Answer:
-switch (direction) {
-case  EAST: x--; break;
-case  WEST: y++; break;
-case SOUTH: y--; break;
-case NORTH: y++; break;
-}

@@ -1,1 +1,0 @@
-search(temperatures[0], sizeof(temperatures) / sizeof(temperatures[0][0]), 32);

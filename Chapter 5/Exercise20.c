@@ -101,14 +101,16 @@ int gettoken(void)
 
 	if (c == '(') {
 		for (; isalnum(c = getch()) || isspace(c) || c == ','; *p++ = c) ;
-		
+
 		*p = '\0';
 
 		if (c == ')') {
-			return PARENS;
+			return tokentype = PARENS;
 		} else {
-			while (--p >= token)
+			while (--p >= token) {
+				putchar(*p);
 				ungetch(*p);
+			} ungetch(c);
 
 			return tokentype = '(';
 		}
@@ -120,14 +122,14 @@ int gettoken(void)
 		return tokentype = BRACKETS;
 	} else if (isalpha(c)) {
 		for (*p++ = c; isalnum(c = getch()); *p++ = c) ;
-		
-		ungetch(c);
 
 		*p = '\0';
-		
+
+		ungetch(c);
+
 		return tokentype = NAME;
 	}
-	
+
 	return tokentype = c;
 }
 
@@ -139,7 +141,6 @@ void dcl(void)
 		ns++;
 
 	if(!dirdcl()) {
-		printf("failed to convert declaration %c\n", tokentype);
 		tokentype = '\0';
 		flush();
 
@@ -156,7 +157,6 @@ int dirdcl(void)
 
 	if (tokentype == '(') {
 		dcl();
-
 		if (tokentype != ')') {
 			printf("error: missing ) \n");
 			return 0;
@@ -164,7 +164,6 @@ int dirdcl(void)
 	} else if (tokentype == NAME) {
 		strcpy(name, token);
 	} else {
-		printf("error: expected name or (dcl)\n");
 		return 0;
 	}
 
@@ -174,7 +173,7 @@ int dirdcl(void)
 				strcat(out, " function ");
 				strcat(out, "which have ");
 				strcat(out, token);
-				strcat(out, " returning");
+				strcat(out, " as an parameter, returning");
 			} else {
 				strcat(out, " array");
 				strcat(out, token);
@@ -185,8 +184,6 @@ int dirdcl(void)
 		return 1;
 	}
 
-	if (tokentype != '\n') return 0;
-	
 	return 1;
 }
 

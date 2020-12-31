@@ -182,7 +182,7 @@ int stricmp(const char *s1, const char *s2)
 	return toupper(*s1) - toupper(*s2);
 }
 
- 
+int numcmp(const char *s1, const char *s2) 
 {
 	double v1, v2;
 
@@ -198,7 +198,7 @@ int stricmp(const char *s1, const char *s2)
 }
 
 
- E
+void swap(void *v[], int i, int j)
 {
 	void *temp;
 

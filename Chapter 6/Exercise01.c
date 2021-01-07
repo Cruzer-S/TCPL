@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
+#include <time.h>
 
 #define MAXWORD 100
 #define NKEYS (sizeof keytab / sizeof(struct key))
@@ -24,11 +25,20 @@ int main(void)
 {
 	int n;
 	char word[MAXWORD];
+	clock_t start, tick = CLOCKS_PER_SEC / 5;
 
-	while (getword(word, MAXWORD) != EOF)
+	while ((n = getword(word, MAXWORD)) != EOF) {
+		/* printf("word: %s [%d]\n", word, n); */
 		if (isalpha(word[0]))
 			if ((n = binsearch(word, keytab, NKEYS)) >= 0)
 				keytab[n].count++;
+		/*
+		for (start = clock(); clock() - start < tick;)
+			;
+			char
+			void
+		*/
+	}
 
 	for (n = 0; n < NKEYS; n++)
 		if (keytab[n].count > 0)
@@ -60,49 +70,46 @@ int binsearch(char *word, struct key tab[], int n)
 
 int getword(char *word, int lim)
 {
-	static int is_comment = 0,
-			   is_preprocessor = 0, 
-			   is_string = 0;
-	
 	int f, l, getch(void);
 	void ungetch(int);
 
 	char *w = word;
 
-	for ( l = -1; isspace(f = getch()); l = f)
-		if (f == '\n' && is_preprocessor)
-			is_preprocessor = 0;
+	*w = '\0';
 
-	if (f == '#') is_preprocessor = 1;
-	else if (f == '/') {
-		l = getch();
-		if (l == '*') is_comment = 1;
-		else          ungetch(l);
-	} else if (f == '*') {
-		l = getch();
-		if (l == '/') is_comment = 0;
-		else          ungetch(l);
-	} else if (l != '\\') {
-		if (f == '\"') is_string = !is_string;
-		else           ungetch(l);
+	while (isspace(f = getch())) ;
+
+	if (f == '\'') {
+		if ((f = getch()) == '\\')
+			getch();
+
+		getchar()
+
+		return 0;
 	}
 
-	if (f != EOF)
+	if (f == '\"') {
+		while ((f = getch()) != '\"')
+			if (f == '\\') getch();
+
+		return 0;
+	}
+
+	if (f == '/') {
+		if ((f = getch()) == '*')
+			while (!((f = getch()) == '*' && getch() == '/')) ;		
+		else
+			ungetch(f);
+
+		return 0;
+	}
+
+	for (l = f; isalnum(f) || f == '_'; l = f, f = getch())
 		*w++ = f;
-	if (!isalpha(f)) {
-		*w = '\0';
-		return f;
-	}
-
-	for (; --lim > 0; w++)
-	{
-		if (!isalnum(*w = getch())) {
-			ungetch(*w);
-			break;
-		}
-	}
 
 	*w = '\0';
+
+	if (f == EOF) return EOF;
 
 	return word[0];
 }

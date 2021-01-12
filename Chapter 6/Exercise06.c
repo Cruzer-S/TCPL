@@ -6,6 +6,12 @@
 #define MAXWORD 100
 #define NKEYS (sizeof keytab / sizeof(struct key))
 
+#ifdef DEBUG
+#define PRINT(X, F) printf(#X " = %" #F "\n", X);
+#else
+#define PRINT(X, F)
+#endif
+
 struct key {
 	char *word;
 	int count;
@@ -28,16 +34,10 @@ int main(void)
 	clock_t start, tick = CLOCKS_PER_SEC / 5;
 
 	while ((n = getword(word, MAXWORD)) != EOF) {
-		/* printf("word: %s [%d]\n", word, n); */
+		PRINT(word, s);
 		if (isalpha(word[0]))
 			if ((n = binsearch(word, keytab, NKEYS)) >= 0)
 				keytab[n].count++;
-		/*
-		for (start = clock(); clock() - start < tick;)
-			;
-			char
-			void
-		*/
 	}
 
 	for (n = 0; n < NKEYS; n++)

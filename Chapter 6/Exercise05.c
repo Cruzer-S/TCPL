@@ -56,7 +56,7 @@ int main(void)
 			break;
 
 		default: return 0;
-		}
+		} printf("\n");
 	}
 
 	return 1;

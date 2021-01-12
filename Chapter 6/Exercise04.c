@@ -61,7 +61,7 @@ struct list *add_list(struct list *first, char word[])
 		return NULL;
 
 	for (prev = NULL, cur = first;
-		 cur != NULL && (comp = strcmp(cur->word, word)) < 0;
+		 cur != NULL && (comp = strcmp(cur->word, word)) > 0;
 		 prev = cur, cur = cur->next) ;
 
 	if (cur == NULL) {

@@ -36,33 +36,37 @@ int main(int argc, char *argv[])
 	if (argc < 1) {
 		fprintf(stderr, "usage: %s -x -n <file or stdin> <pattern>\n", argv[0]);
 		exit(1);
-	} else if (argc == 2) {
-		fp = fopen(argv[0], "r");
-		if (fp == NULL) {
-			fprintf(stderr, "failed to open file %s\n", argv[0]);
-			exit(1);
-		}
-
-		comp = argv[1];
+	} else if (argc > 1) {	
+		comp = argv[argc - 1];
 	} else {
 		fp = stdin;
 		comp = argv[0];
+		argc = 2;
 	}
 
-	printf("argv[0]: %s\tarvg[1]: %s\n", argv[0], argv[1]);
-	while (getline(fp, line, MAXLINE) > 0) 
-	{
-		lineno++;
-		if ((strstr(line, comp) != NULL) != except) {
-			if (fp != stdin)
-				printf("%s ", argv[0]);
-			if (number)
-				printf("%3ld\t", lineno);
-			printf("%s", line);
-			found++;
+	for (c = 0; c < (argc - 1); c++) {
+		if (fp != stdin) {
+			fp = fopen(argv[c], "r");
+			if (fp == NULL) {
+				fprintf(stderr, "failed to open file %s\n", argv[c]);
+				exit(1);
+			}
+		}
+
+		while (getline(fp, line, MAXLINE) > 0) 
+		{
+			lineno++;
+			if ((strstr(line, comp) != NULL) != except) {
+				if (fp != stdin)
+					printf("%s ", argv[c]);
+				if (number)
+					printf("%3ld\t", lineno);
+				printf("%s", line);
+				found++;
+			}
 		}
 	}
-
+	
 	return found;
 }
 

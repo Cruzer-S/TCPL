@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 			break;
 		}
 
-	fclose(first);
+	 
 	fclose(second);
 
 	return 0;

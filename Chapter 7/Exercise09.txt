@@ -1,0 +1,5 @@
+First Case: implement isupper as a macro.
+In this case, the function isupper can be invoked faster than a function call, but the total program size can be grown.
+
+Second Case: implement isupper as a function.
+In that case, although, isupper may be slower than macro invocation, output may be compact than macro definition.

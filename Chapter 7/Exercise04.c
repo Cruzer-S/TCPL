@@ -5,7 +5,7 @@ int minscanf(char *, ...);
 int main(void)
 {
 	int age;
-	double height;
+	float height;
 	char name[100];
 
 	printf("name: ");
@@ -44,7 +44,7 @@ int minscanf(char *fmt, ...)
 				break;
 		} else {
 			int ival;
-			double dval, power;
+			float fval, power;
 			char *str;
 
 			while (isspace(ch = getchar())) ;
@@ -60,16 +60,16 @@ int minscanf(char *fmt, ...)
 				break;
 
 			case 'f':
-				for (dval = 0.0; isdigit(ch = getchar()); fmt++)
-					dval = dval * 10.0 + (double)(ch - '0');
+				for (fval = 0.0f; isdigit(ch = getchar()); fmt++)
+					fval = fval * 10.0 + (double)(ch - '0');
 
 				power = 1.0;
 				if (ch == '.')
 					for (; isdigit(ch = getchar()); power *= 10.0)
-						dval = dval * 10.0 + (double)(ch - '0');
+						fval = fval * 10.0 + (double)(ch - '0');
 				ungetc(ch, stdin);
 
-				*(va_arg(ap, double *)) = dval / power;
+				*(va_arg(ap, double *)) = fval / power;
 				break;
 
 			case 's':

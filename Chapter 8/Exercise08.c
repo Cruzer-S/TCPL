@@ -2,6 +2,7 @@
 
 void *malloc(unsigned );
 void free(void *);
+void bfree(void *, unsigned );
 
 int main(int argc, char *argv[])
 {
@@ -119,4 +120,19 @@ void free(void *ap)
 	}
 
 	freep = p;
+}
+
+void bfree(void *p, unsigned n)
+{
+	Header *hp;
+	unsigned nunits;
+
+	if (n < sizeof(Header) * 2)
+		return ;
+
+	nunits = (n + sizeof(Header) - 1) / sizeof(Header) + 1;
+
+	hp = (Header *) p;
+	hp->s.size = nunits;
+	free((void *)(hp + 1));
 }

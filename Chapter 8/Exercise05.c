@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
 	else
 		while (--argc > 0)
 			fsize(*++argv);
+
 	return 0;
 }
 
